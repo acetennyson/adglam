@@ -1,0 +1,48 @@
+import Story from "@/components/Story";
+import Reels from "@/components/Reels";
+import ThemeToggle from "@/components/ThemeToggle";
+import { getReels } from "@/lib/reels";
+
+export const revalidate = 60; // re-fetch reels from the DB at most once a minute
+
+export default async function Home() {
+  const reels = await getReels();
+  return (
+    <main>
+      <header className="nav glass">
+        <a href="#top" className="brand">ADGlam</a>
+        <nav><a href="#services">Services</a><a href="#reels">Work</a><a href="#book">Book</a></nav>
+        <ThemeToggle />
+      </header>
+
+      <div id="top"><Story /></div>
+
+      <section id="services" className="block">
+        <h2 className="h2">Two services, one artist</h2>
+        <div className="two">
+          <div className="glass card">
+            <h3>Makeup</h3>
+            <ul><li>Glam, natural and bridal</li><li>Special occasions</li><li>Photoshoots</li><li>On-location service</li></ul>
+          </div>
+          <div className="glass card">
+            <h3>Mobile photography</h3>
+            <ul><li>Portraits</li><li>Events</li><li>Lifestyle</li><li>Creative content</li><li>High-quality edits</li></ul>
+          </div>
+        </div>
+        <p className="lede">Ideal for birthdays, dates, personal branding and content days. Home, office and events: ADGlam comes to you.</p>
+      </section>
+
+      <Reels reels={reels} />
+
+      <section id="book" className="block book">
+        <h2 className="h2">Book a session</h2>
+        <p className="lede">Call or message to pick a date. Scheduling is flexible.</p>
+        <div className="contact">
+          <a className="btn" href="tel:+237670724330">Call 670 724 330</a>
+          <a className="btn ghost" href="https://www.tiktok.com/@ADGlam" target="_blank" rel="noreferrer">TikTok @ADGlam</a>
+        </div>
+        <p className="small">Servicing Buea, Mayor&apos;s Street</p>
+      </section>
+    </main>
+  );
+}
