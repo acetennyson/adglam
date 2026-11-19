@@ -12,7 +12,7 @@ export default async function Panel({ children }: { children: React.ReactNode })
         <nav className="adm-nav">
           <Link href="/admin">Dashboard</Link>
           {me.role === "owner" && <Link href="/admin/team">Team</Link>}
-          <span className="soon">Reels</span><span className="soon">Blog</span><span className="soon">Contact</span>
+          <Link href="/admin/reels">Reels</Link><span className="soon">Blog</span><span className="soon">Contact</span>
         </nav>
         <div className="adm-who"><span className="badge">{me.role}</span><span className="adm-name">{me.name}</span><ThemeToggle /><LogoutButton /></div>
       </header>

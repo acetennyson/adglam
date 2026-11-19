@@ -31,3 +31,13 @@ Setup
 4. Authentication > Settings > Authorized domains: add your Vercel domain.
 5. Create the first owner: `node --env-file=.env.local scripts/make-owner.mjs you@email.com "Your Name" "long-password"`.
 6. Sign in at `/admin/login`, open **Team**, invite people. The invite link is shown once and expires in 7 days.
+
+## Admin: reels
+Paste a TikTok, Instagram or YouTube link in `/admin/reels`. Contributors save drafts; editors publish, unpublish, reorder and delete any reel; owners can do everything.
+- Data lives in Firestore `reels/{id}`. The public homepage reads only `published` reels (falls back to placeholder cards until one exists).
+- Videos are not uploaded. The site embeds the platform's own player when a visitor taps a card. If a post is deleted on the platform, it stops playing on the site.
+- Covers: YouTube covers are automatic. For TikTok/Instagram upload any photo as the cover; it is cropped to 9:16 and stored in Firebase Storage.
+- Setup: enable **Storage** in Firebase, set `FIREBASE_STORAGE_BUCKET` in `.env.local` and Vercel, and publish `storage.rules`. Firestore rules are unchanged (reels are read and written only by the server).
+
+### TikTok embed troubleshooting
+The site uses the same iframe address TikTok's own oEmbed returns (`/player/v1/ID?embed_from=oembed&...`). If it stops working, set `NEXT_PUBLIC_TIKTOK_EMBED=classic` to switch to the older `/embed/v2/ID` page, and redeploy. Test any video quickly by opening `https://www.tiktok.com/embed/v2/<video id>` in a browser tab.

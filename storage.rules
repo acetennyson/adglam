@@ -1,0 +1,7 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Uploads happen on the server (Admin SDK). Covers are served through tokenised download URLs.
+    match /{allPaths=**} { allow read, write: if false; }
+  }
+}
