@@ -1,7 +1,11 @@
 {
   "name": "adglam",
   "private": true,
-  "scripts": { "dev": "next dev", "build": "next build", "start": "next start" },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
   "dependencies": {
     "@paper-design/shaders-react": "latest",
     "@react-three/drei": "^9.114.0",
@@ -9,7 +13,9 @@
     "next": "14.2.15",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "three": "^0.169.0"
+    "three": "^0.169.0",
+    "firebase": "^11.0.0",
+    "firebase-admin": "^13.0.0"
   },
   "devDependencies": {
     "@types/node": "^20",

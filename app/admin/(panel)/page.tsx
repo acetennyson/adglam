@@ -1,0 +1,23 @@
+import Link from "next/link";
+import { requireRole, type Role } from "@/lib/auth";
+
+const CAN: Record<Role, string> = {
+  owner: "You can manage the team and do everything editors can.",
+  editor: "You can create, edit and publish content.",
+  contributor: "You can create and edit drafts. An editor publishes them.",
+};
+
+export default async function Dashboard({ searchParams }: { searchParams: { denied?: string } }) {
+  const me = await requireRole();
+  return (
+    <>
+      <h1 className="h2">Welcome, {me.name.split(" ")[0]}</h1>
+      <p className="lede">{CAN[me.role]}</p>
+      {searchParams.denied && <p className="adm-err">Your role does not have access to that page.</p>}
+      <div className="two">
+        {me.role === "owner" && <Link href="/admin/team" className="glass card"><h3>Team</h3><p className="lede">Invite admins, change roles, disable access.</p></Link>}
+        {["Reels", "Blog", "Contact info"].map((m) => <div key={m} className="glass card soon"><h3>{m}</h3><p className="lede">Coming next.</p></div>)}
+      </div>
+    </>
+  );
+}

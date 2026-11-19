@@ -6,28 +6,36 @@ import { useScrollProgress } from "@/lib/useScrollProgress";
 const Scene = dynamic(() => import("./Scene"), { ssr: false });
 
 const chapters = [
-  { title: "Makeup that arrives with you.", text: "Glam, natural and bridal looks, done where you are: home, office or the venue.", cta: true },
-  { title: "Your look, built around your day.", text: "Every session starts with your event, your skin and your outfit. Nothing is a template." },
-  { title: "Prepared down to the brush.", text: "Professional products, clean tools and a flexible schedule, so you are never rushed before you step out." },
-  { title: "Then we capture it.", text: "Portraits, events and lifestyle shots on a phone camera, edited to a high standard, from the same artist who did your makeup." },
-  { title: "Feel confident. Look amazing.", text: "Book a session in Buea and the team comes to you.", end: true },
+  { kicker: "Look beautiful. Capture moments.", title: "Remember how you felt.", body: "The morning of a wedding. A birthday shoot. The day the brand finally launched. ADGlam does your makeup and photographs the moment, so you keep the feeling and not just the picture.", keep: "Anytime, anywhere", cta: true },
+  { kicker: "7:40 a.m. The car is almost here.", title: "The hour before everything.", body: "This is when nerves turn into excitement. We arrive at your door with the whole kit, and the next hour is yours: calm music, a steady hand and a look chosen around your day.", keep: "Glam, natural or bridal" },
+  { kicker: "Soft strokes. Slow breathing.", title: "Skin that feels like you.", body: "Nothing is copied from a template. We start with your skin, your outfit and the way you want to be remembered, then build the look one careful layer at a time.", keep: "Professional products, clean tools" },
+  { kicker: "The mirror opens.", title: "The moment you see it.", body: "That small pause when you look up and recognise yourself, only better. It is the part worth slowing down for, so we never rush it.", keep: "Flexible scheduling that works for you" },
+  { kicker: "One tap. One flash.", title: "Then we capture it.", body: "The same artist who did your makeup photographs you, on location, in real light. Portraits, events and lifestyle shots, edited to a high standard and ready for your feed or your wall.", keep: "Portraits, events, lifestyle, content" },
+  { kicker: "Years from now.", title: "Keep it forever.", body: "A look fades by midnight. A good photograph does not. Book a session in Buea and we will come to you, with the makeup, the camera and the time to make it special.", keep: "Home, office, events and more", cta: true },
 ];
+
+function Reveal({ text }: { text: string }) {
+  const w = text.split(" ");
+  return <p className="words">{w.map((x, i) => <span key={i} style={{ ["--i" as any]: i, ["--n" as any]: w.length }}>{x} </span>)}</p>;
+}
 
 export default function Story() {
   const { el, progress, chapter } = useScrollProgress(chapters.length);
   return (
-    <div ref={el} className="story" style={{ height: `${chapters.length * 110}vh` }}>
+    <div ref={el} className="story" style={{ height: `${chapters.length * 140}vh` }}>
       <div className="stage">
         <div className="canvas"><Scene progress={progress} /></div>
         {chapter === 0 && <LiquidLogo className="logo" />}
+        <div className="bar" aria-hidden />
         {chapters.map((c, i) => (
-          <section key={i} className={`chapter glass ${i === chapter ? "on" : ""}`} aria-hidden={i !== chapter}>
+          <section key={i} className={`chapter glass ${i === chapter ? "on" : ""} ${i % 2 ? "r" : ""}`} aria-hidden={i !== chapter}>
+            <em className="kicker">{c.kicker}</em>
             <h1 className={i === 0 ? "h1" : "h2"}>{c.title}</h1>
-            <p>{c.text}</p>
-            {(c.cta || c.end) && <a className="btn" href="#book">Book a session</a>}
+            <Reveal text={c.body} />
+            <span className="keep">{c.keep}</span>
+            {c.cta && <a className="btn" href="#book">Book a session</a>}
           </section>
         ))}
-        <div className="hint" aria-hidden>Scroll</div>
       </div>
     </div>
   );

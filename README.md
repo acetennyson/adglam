@@ -20,3 +20,14 @@ Deploy: push to GitHub, import in Vercel, no env vars needed yet.
 - Large videos: add Cloudinary or Mux for compression and streaming.
 
 Suggested `reels` table: id, title, category, kind (video/image), src, poster, tone_a, tone_b, published, sort_order, created_at.
+
+## Admin: team management (Firebase)
+Roles: **contributor** drafts, **editor** publishes, **owner** manages the team. Role lives in a Firebase custom claim and is mirrored in Firestore `admins/{uid}`.
+
+Setup
+1. Firebase console: create a project, enable **Authentication > Email/Password**, create a **Firestore** database, add a Web app and copy its config.
+2. Project settings > Service accounts > Generate new private key. Copy the values into `.env.local` (see `.env.example`). On Vercel add the same variables (paste the private key with `\n` kept as is).
+3. Paste `firestore.rules` into Firestore > Rules and publish.
+4. Authentication > Settings > Authorized domains: add your Vercel domain.
+5. Create the first owner: `node --env-file=.env.local scripts/make-owner.mjs you@email.com "Your Name" "long-password"`.
+6. Sign in at `/admin/login`, open **Team**, invite people. The invite link is shown once and expires in 7 days.
