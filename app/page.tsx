@@ -2,7 +2,7 @@ import Story from "@/components/Story";
 import Reels from "@/components/Reels";
 import SiteNav from "@/components/SiteNav";
 import { getReels } from "@/lib/reels";
-import { HOME_REELS } from "@/lib/site";
+import { HOME_REELS, SITE } from "@/lib/site";
 
 export const revalidate = 60; // re-fetch reels from the DB at most once a minute
 
@@ -37,7 +37,7 @@ export default async function Home() {
         <div className="contact">
           <a className="btn" href="tel:+237670724330">Call 670 724 330</a>
           <a className="btn ghost" href="/contact">Send a message</a>
-          <a className="btn ghost" href="https://www.tiktok.com/@ADGlam" target="_blank" rel="noreferrer">TikTok @ADGlam</a>
+          <a className="btn ghost" href={SITE.tiktok} target="_blank" rel="noreferrer">TikTok @ADGlam</a>
         </div>
         <p className="small">Servicing Buea, Mayor&apos;s Street</p>
       </section>
