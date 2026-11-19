@@ -4,6 +4,7 @@ import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import { getReels } from "@/lib/reels";
 import { HOME_REELS, SITE } from "@/lib/site";
+import { phonePretty, tiktokHandle } from "@/lib/contact";
 
 export const revalidate = 60; // re-fetch reels from the DB at most once a minute
 
