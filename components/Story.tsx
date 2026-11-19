@@ -20,11 +20,11 @@ function Reveal({ text }: { text: string }) {
 }
 
 export default function Story() {
-  const { el, progress, chapter } = useScrollProgress(chapters.length);
+  const { el, progress, chapter, visible } = useScrollProgress(chapters.length);
   return (
     <div ref={el} className="story" style={{ height: `${chapters.length * 140}vh` }}>
       <div className="stage">
-        <div className="canvas"><Scene progress={progress} /></div>
+        <div className="canvas"><Scene progress={progress} active={visible} /></div>
         {chapter === 0 && <LiquidLogo className="logo" />}
         <div className="bar" aria-hidden />
         {chapters.map((c, i) => (

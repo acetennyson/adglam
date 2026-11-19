@@ -170,3 +170,8 @@ textarea.field{resize:vertical;min-height:140px;font:inherit}
 .count{justify-self:end}.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
 .cf-send{display:flex;flex-wrap:wrap;gap:1rem;align-items:center}
 .msg.new{border-color:var(--rose-d)}.msg-body{margin:0;white-space:pre-wrap;word-break:break-word}.adm-row.nb{border-top:0;padding:0}
+
+/* adaptive quality: backdrop blur over a moving WebGL canvas is costly, so lighter tiers use less of it */
+html[data-q="1"] .stage .glass,html[data-q="1"] .nav.glass{backdrop-filter:blur(8px) saturate(1.2);-webkit-backdrop-filter:blur(8px) saturate(1.2)}
+html[data-q="0"] .stage .glass,html[data-q="0"] .nav.glass{backdrop-filter:none;-webkit-backdrop-filter:none;background:color-mix(in srgb,var(--bg) 80%,transparent)}
+.chapter{will-change:opacity,transform}
