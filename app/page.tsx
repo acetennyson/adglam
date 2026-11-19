@@ -28,7 +28,7 @@ export default async function Home() {
             <ul><li>Portraits</li><li>Events</li><li>Lifestyle</li><li>Creative content</li><li>High-quality edits</li></ul>
           </div>
         </div>
-        <p className="lede">Ideal for birthdays, dates, personal branding and content days. Home, office and events: ADGlam comes to you.</p>
+        <p className="lede">Ideal for birthdays, dates, personal branding and content days. Home, office and events: {SITE.name} comes to you.</p>
       </section>
 
       <Reels reels={reels} />
@@ -37,11 +37,11 @@ export default async function Home() {
         <h2 className="h2">Book a session</h2>
         <p className="lede">Call or message to pick a date. Scheduling is flexible.</p>
         <div className="contact">
-          <a className="btn" href="tel:+237670724330">Call 670 724 330</a>
+          <a className="btn" href={`tel:${SITE.phone}`}>Call {phonePretty()}</a>
           <a className="btn ghost" href="/contact">Send a message</a>
-          <a className="btn ghost" href={SITE.tiktok} target="_blank" rel="noreferrer">TikTok @ADGlam</a>
+          <a className="btn ghost" href={SITE.tiktok} target="_blank" rel="noreferrer">TikTok {tiktokHandle()}</a>
         </div>
-        <p className="small">Servicing Buea, Mayor&apos;s Street</p>
+        <p className="small">Servicing {SITE.location}</p>
       </section>
     </main>
     <SiteFooter />
