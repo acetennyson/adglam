@@ -29,7 +29,7 @@ export default function SiteFooter() {
       </div>
       <div className="sf-base">
         <span>© {new Date().getFullYear()} ADGlam. All rights reserved.</span>
-        <span className="sf-credit">Website by <a href={CREDIT.url} target="_blank" rel="noopener">{CREDIT.name}</a> · Need a website? <a href={CREDIT.url} target="_blank" rel="noopener">Let’s talk ↗</a></span>
+        <span className="sf-credit">Website by <a href={CREDIT.url} target="_blank" rel="noopener">{CREDIT.name}↗</a></span>
       </div>
     </footer>
   );
