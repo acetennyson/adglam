@@ -1,5 +1,12 @@
 import type { MetadataRoute } from "next";
 import { SITE } from "@/lib/site";
-export default function sitemap(): MetadataRoute.Sitemap {
-  return [{ url: SITE.url, lastModified: new Date(), changeFrequency: "monthly", priority: 1 }];
+import { getPublishedReels } from "@/lib/reels";
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const reels = await getPublishedReels();
+  return [
+    { url: SITE.url, lastModified: new Date(), changeFrequency: "monthly", priority: 1 },
+    { url: `${SITE.url}/reels`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
+    ...reels.map((r) => ({ url: `${SITE.url}/reels/${r.id}`, lastModified: r.publishedAt ? new Date(r.publishedAt) : undefined, priority: 0.6 })),
+  ];
 }

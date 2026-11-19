@@ -1,7 +1,7 @@
 // Pure helpers (safe for server and client): detect a platform from a pasted link and build the embed URL.
 export type Platform = "tiktok" | "instagram" | "youtube";
 export type Parsed = { platform: Platform; externalId: string; url: string };
-export type Reel = { id: string; title: string; category: string; platform: Platform | "placeholder"; embedUrl?: string; url?: string; cover?: string | null; tone: [string, string] };
+export type Reel = { id: string; title: string; category: string; platform: Platform | "placeholder"; embedUrl?: string; url?: string; externalId?: string; publishedAt?: string; cover?: string | null; tone: [string, string] };
 export const PLATFORM_LABEL: Record<Platform, string> = { tiktok: "TikTok", instagram: "Instagram", youtube: "YouTube" };
 export const CATEGORIES = ["Glam", "Bridal", "Natural", "Events", "Content", "Portraits"];
 
@@ -23,11 +23,16 @@ export function parseReelUrl(raw: string): Parsed | null {
   return null;
 }
 
-export function embedSrc(platform: Platform, id: string) {
-  if (platform === "youtube") return `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&playsinline=1`;
-  // Mirrors the iframe TikTok's own oEmbed endpoint returns (player/v1 + embed_from=oembed, muted autoplay).
-  // Set NEXT_PUBLIC_TIKTOK_EMBED=classic to fall back to the older /embed/v2 page.
-  if (platform === "tiktok") return process.env.NEXT_PUBLIC_TIKTOK_EMBED === "classic" ? `https://www.tiktok.com/embed/v2/${id}` : `https://www.tiktok.com/player/v1/${id}?embed_from=oembed&music_info=1&description=1&autoplay=1&muted=1`;
+// autoplay: start on load. muted: start silent (TikTok then blocks the viewer from changing volume, so only use it where autoplay needs it).
+// clean: hide the platform's own controls/captions so the site can draw its own (used by the reel feed).
+export function embedSrc(platform: Platform, id: string, autoplay = true, muted = false, clean = false) {
+  const a = autoplay ? 1 : 0, m = muted ? 1 : 0;
+  if (platform === "youtube") return `https://www.youtube-nocookie.com/embed/${id}?autoplay=${a}&mute=${m}&rel=0&playsinline=1` + (clean ? `&controls=0&loop=1&playlist=${id}&modestbranding=1&iv_load_policy=3&enablejsapi=1` : "");
+  // TikTok: Embed Player (player/v1). NEXT_PUBLIC_TIKTOK_EMBED=classic falls back to the older /embed/v2 page.
+  if (platform === "tiktok") {
+    if (process.env.NEXT_PUBLIC_TIKTOK_EMBED === "classic") return `https://www.tiktok.com/embed/v2/${id}`;
+    return `https://www.tiktok.com/player/v1/${id}?embed_from=oembed&autoplay=${a}&muted=${m}` + (clean ? "&controls=0&loop=1" : "&music_info=1&description=1");
+  }
   return `https://www.instagram.com/reel/${id}/embed/`;
 }
 export const autoCover = (platform: Platform, id: string) => (platform === "youtube" ? `https://i.ytimg.com/vi/${id}/hqdefault.jpg` : null);

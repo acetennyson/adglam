@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useState } from "react";
 import { PLATFORM_LABEL, type Reel } from "@/lib/embed";
 import ReelPlayer from "./ReelPlayer";
@@ -20,6 +21,7 @@ export default function Reels({ reels }: { reels: Reel[] }) {
           </button>
         ))}
       </div>
+      <p className="more"><Link className="btn ghost" href="/reels">See all reels</Link></p>
       {open && <ReelPlayer src={open.embedUrl!} title={open.title} href={open.url} label={open.platform === "placeholder" ? "" : PLATFORM_LABEL[open.platform]} onClose={() => setOpen(null)} />}
     </section>
   );

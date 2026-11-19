@@ -59,6 +59,7 @@ export default function ReelsClient({ reels, role }: { reels: Row[]; role: strin
             <span className={`badge ${r.status === "draft" ? "off" : ""}`}>{r.status}</span>
             <div className="adm-acts">
               <button className="btn sm ghost" onClick={() => setView(r)}>Preview</button>
+              {r.status === "published" && <a className="btn sm ghost" href={`/reels/${r.id}`} target="_blank" rel="noreferrer">View page</a>}
               {canTouch(r) && <button className="btn sm ghost" disabled={pending} onClick={() => startEdit(r)}>Edit</button>}
               {editor && <button className="btn sm ghost" disabled={pending} onClick={() => run(() => setStatus(r.id, r.status === "draft" ? "published" : "draft"))}>{r.status === "draft" ? "Publish" : "Unpublish"}</button>}
               {editor && r.status === "published" && <>

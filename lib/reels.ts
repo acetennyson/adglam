@@ -7,13 +7,33 @@ const TONES: [string, string][] = [["#f2b8b0", "#c98686"], ["#f7dcd9", "#d9a0a0"
 const PLACEHOLDERS: Reel[] = ["Soft glam, golden hour", "Bridal morning in Buea", "Natural look, studio portrait", "Birthday shoot, on location", "Brand content day", "Date night glow"]
   .map((title, i) => ({ id: String(i), title, category: ["Glam", "Bridal", "Natural", "Events", "Content", "Glam"][i], platform: "placeholder", tone: TONES[i] }));
 
-// Published reels from Firestore (newest first, or the order set in admin). Falls back to placeholders until there is real content.
-export async function getReels(): Promise<Reel[]> {
-  if (!process.env.FIREBASE_PROJECT_ID) return PLACEHOLDERS;
+const live = () => !!process.env.FIREBASE_PROJECT_ID;
+const toReel = (id: string, r: any, i: number): Reel => ({
+  id, title: r.title, category: r.category, platform: r.platform, externalId: r.externalId, url: r.url,
+  embedUrl: embedSrc(r.platform, r.externalId), cover: r.cover || autoCover(r.platform, r.externalId),
+  publishedAt: r.publishedAt?.toDate?.().toISOString(), tone: TONES[i % TONES.length],
+});
+
+// Published reels only, in the order set in admin (newest first by default).
+export async function getPublishedReels(): Promise<Reel[]> {
+  if (!live()) return [];
   try {
     const snap = await db().collection("reels").get();
-    const rows = snap.docs.map((d) => ({ id: d.id, ...(d.data() as any) })).filter((r) => r.status === "published").sort((a, b) => b.sortOrder - a.sortOrder);
-    if (!rows.length) return PLACEHOLDERS;
-    return rows.map((r, i) => ({ id: r.id, title: r.title, category: r.category, platform: r.platform, embedUrl: embedSrc(r.platform, r.externalId), url: r.url, cover: r.cover || autoCover(r.platform, r.externalId), tone: TONES[i % TONES.length] }));
-  } catch { return PLACEHOLDERS; }
+    return snap.docs.map((d) => ({ id: d.id, ...(d.data() as any) })).filter((r) => r.status === "published")
+      .sort((a, b) => b.sortOrder - a.sortOrder).map((r, i) => toReel(r.id, r, i));
+  } catch { return []; }
+}
+
+// Real reels, or placeholder cards until the first one is published.
+export async function getReels(): Promise<Reel[]> {
+  const rows = await getPublishedReels();
+  return rows.length ? rows : PLACEHOLDERS;
+}
+
+export async function getReel(id: string): Promise<Reel | null> {
+  if (!live() || !/^[\w-]{1,40}$/.test(id)) return null;
+  try {
+    const s = await db().doc(`reels/${id}`).get();
+    return s.exists && s.data()!.status === "published" ? toReel(s.id, s.data(), 0) : null;
+  } catch { return null; }
 }

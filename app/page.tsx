@@ -1,6 +1,6 @@
 import Story from "@/components/Story";
 import Reels from "@/components/Reels";
-import ThemeToggle from "@/components/ThemeToggle";
+import SiteNav from "@/components/SiteNav";
 import { getReels } from "@/lib/reels";
 
 export const revalidate = 60; // re-fetch reels from the DB at most once a minute
@@ -9,11 +9,7 @@ export default async function Home() {
   const reels = await getReels();
   return (
     <main>
-      <header className="nav glass">
-        <a href="#top" className="brand">ADGlam</a>
-        <nav><a href="#services">Services</a><a href="#reels">Work</a><a href="#book">Book</a></nav>
-        <ThemeToggle />
-      </header>
+      <SiteNav />
 
       <div id="top"><Story /></div>
 
