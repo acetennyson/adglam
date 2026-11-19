@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import SiteNav from "@/components/SiteNav";
+import SiteFooter from "@/components/SiteFooter";
 import ContactForm from "@/components/ContactForm";
 import CopyButton from "@/components/CopyButton";
 import { SITE } from "@/lib/site";
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   const pretty = "+237 670 724 330";
   return (
+    <>
     <main>
       <SiteNav />
       <section className="block top">
@@ -31,5 +33,7 @@ export default function ContactPage() {
         </div>
       </section>
     </main>
+    <SiteFooter />
+    </>
   );
 }

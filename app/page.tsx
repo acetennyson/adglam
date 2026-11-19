@@ -1,6 +1,7 @@
 import Story from "@/components/Story";
 import Reels from "@/components/Reels";
 import SiteNav from "@/components/SiteNav";
+import SiteFooter from "@/components/SiteFooter";
 import { getReels } from "@/lib/reels";
 import { HOME_REELS, SITE } from "@/lib/site";
 
@@ -9,6 +10,7 @@ export const revalidate = 60; // re-fetch reels from the DB at most once a minut
 export default async function Home() {
   const reels = await getReels(HOME_REELS);
   return (
+    <>
     <main>
       <SiteNav />
 
@@ -42,5 +44,7 @@ export default async function Home() {
         <p className="small">Servicing Buea, Mayor&apos;s Street</p>
       </section>
     </main>
+    <SiteFooter />
+    </>
   );
 }

@@ -1,3 +1,5 @@
+export const CREDIT = { name: "Ado Daniel Nji", url: "https://adodanielnj.vercel.app/" };
+
 export const SITE = {
   name: "ADGlam",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://adglam.vercel.app", // set NEXT_PUBLIC_SITE_URL in Vercel once you have the domain

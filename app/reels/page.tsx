@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
+import SiteFooter from "@/components/SiteFooter";
 import ReelsGallery from "@/components/ReelsGallery";
 import { getReels } from "@/lib/reels";
 
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
 export default async function ReelsPage() {
   const reels = await getReels();
   return (
+    <>
     <main>
       <SiteNav />
       <section className="block top">
@@ -27,5 +29,7 @@ export default async function ReelsPage() {
         <div className="contact"><Link className="btn" href="/#book">Book a session</Link></div>
       </section>
     </main>
+    <SiteFooter />
+    </>
   );
 }
