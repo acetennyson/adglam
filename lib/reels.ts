@@ -25,9 +25,10 @@ export async function getPublishedReels(): Promise<Reel[]> {
 }
 
 // Real reels, or placeholder cards until the first one is published.
-export async function getReels(): Promise<Reel[]> {
+export async function getReels(limit?: number): Promise<Reel[]> {
   const rows = await getPublishedReels();
-  return rows.length ? rows : PLACEHOLDERS;
+  const list = rows.length ? rows : PLACEHOLDERS;
+  return limit ? list.slice(0, limit) : list;
 }
 
 export async function getReel(id: string): Promise<Reel | null> {

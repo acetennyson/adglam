@@ -41,3 +41,10 @@ Paste a TikTok, Instagram or YouTube link in `/admin/reels`. Contributors save d
 
 ### TikTok embed troubleshooting
 The site uses the same iframe address TikTok's own oEmbed returns (`/player/v1/ID?embed_from=oembed&...`). If it stops working, set `NEXT_PUBLIC_TIKTOK_EMBED=classic` to switch to the older `/embed/v2/ID` page, and redeploy. Test any video quickly by opening `https://www.tiktok.com/embed/v2/<video id>` in a browser tab.
+
+## Contact page and inbox
+`/contact` saves messages to Firestore `messages` (server only). Editors and owners read them in `/admin/messages`, with an unread count in the admin nav.
+- Spam protection: hidden honeypot field, minimum time on page, and 5 messages per hour per visitor (hashed IP).
+- Optional email alerts: create a free Resend account, set `RESEND_API_KEY` and `CONTACT_TO_EMAIL` (and a verified `CONTACT_FROM_EMAIL` for production). Without them nothing is emailed.
+- The WhatsApp button uses `SITE.whatsapp` in `lib/site.ts`. Remove it there and in `app/contact/page.tsx` if the number is not on WhatsApp.
+- The homepage reels strip shows `HOME_REELS` (6) reels; change it in `lib/site.ts`.

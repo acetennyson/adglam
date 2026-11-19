@@ -93,27 +93,27 @@ export default function ReelFeed({ reels, startId, siteUrl }: { reels: Reel[]; s
           const p = r.platform as Platform, ctl = p !== "instagram", live = i === playing;
           const tags = [r.category, "ADGlam", "Buea"].map((t) => "#" + t.toLowerCase().replace(/\s+/g, ""));
           return (
-            <section key={r.id} data-i={i} ref={(el) => { slides.current[i] = el; }} className="slide" aria-label={`Reel ${i + 1} of ${reels.length}: ${r.title}`}>
-              <div className="stage">
-                <div className="frame" style={{ background: `linear-gradient(160deg, ${r.tone[0]}, ${r.tone[1]})` }}>
+            <section key={r.id} data-i={i} ref={(el) => { slides.current[i] = el; }} className="rf-slide" aria-label={`Reel ${i + 1} of ${reels.length}: ${r.title}`}>
+              <div className="rf-stage">
+                <div className="rf-frame" style={{ background: `linear-gradient(160deg, ${r.tone[0]}, ${r.tone[1]})` }}>
                   {live
                     ? <iframe ref={(el) => { if (i === active) player.current = el; }} src={embedSrc(p, r.externalId!, true, muted, ctl)} title={r.title}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; fullscreen; gyroscope; picture-in-picture; web-share" />
                     : <>{r.cover && <img src={r.cover} alt="" referrerPolicy="no-referrer" />}<i className="play" aria-hidden /></>}
-                  {live && ctl && <div className="layer" onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={cancel} onPointerLeave={cancel} onContextMenu={(e) => e.preventDefault()} />}
-                  {live && paused && <div className="paused" aria-hidden><Icon n="play" /></div>}
-                  <div className="cap2">
+                  {live && ctl && <div className="rf-layer" onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={cancel} onPointerLeave={cancel} onContextMenu={(e) => e.preventDefault()} />}
+                  {live && paused && <div className="rf-paused" aria-hidden><Icon n="play" /></div>}
+                  <div className="rf-cap">
                     <strong className="who">@adglam</strong>
                     <span className="ttl">{r.title}</span>
                     <span className="tags">{tags.join(" ")}</span>
                     {hint && i === active && ctl && <span className="hint">Hold the video for more</span>}
                   </div>
                 </div>
-                <div className="rail">
-                  {ctl && <button className="rail-btn" onClick={() => setMuted(!muted)} aria-label={muted ? "Turn sound on" : "Turn sound off"}><span className="ic"><Icon n={muted ? "off" : "on"} /></span>{muted ? "Sound" : "Mute"}</button>}
-                  <button className="rail-btn" onClick={openSheet} aria-label="Share and more"><span className="ic"><Icon n="share" /></span>Share</button>
-                  <Link className="rail-btn" href="/#book" aria-label="Book a similar look"><span className="ic"><Icon n="book" /></span>Book</Link>
-                  <a className="rail-btn" href={r.url} target="_blank" rel="noreferrer" aria-label={`Watch on ${PLATFORM_LABEL[p]}`}><span className="ic"><Icon n="out" /></span>{PLATFORM_LABEL[p]}</a>
+                <div className="rf-rail">
+                  {ctl && <button className="rf-btn" onClick={() => setMuted(!muted)} aria-label={muted ? "Turn sound on" : "Turn sound off"}><span className="ic"><Icon n={muted ? "off" : "on"} /></span>{muted ? "Sound" : "Mute"}</button>}
+                  <button className="rf-btn" onClick={openSheet} aria-label="Share and more"><span className="ic"><Icon n="share" /></span>Share</button>
+                  <Link className="rf-btn" href="/#book" aria-label="Book a similar look"><span className="ic"><Icon n="book" /></span>Book</Link>
+                  <a className="rf-btn" href={r.url} target="_blank" rel="noreferrer" aria-label={`Watch on ${PLATFORM_LABEL[p]}`}><span className="ic"><Icon n="out" /></span>{PLATFORM_LABEL[p]}</a>
                 </div>
               </div>
             </section>
