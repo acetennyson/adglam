@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import ThemeToggle from "@/components/ThemeToggle";
 import LogoutButton from "./LogoutButton";
+import { SITE } from "@/lib/site";
 
 export type NavItem = { label: string; href?: string; badge?: number; soon?: boolean };
 
@@ -26,7 +27,7 @@ export default function AdminHeader({ items, name, role }: { items: NavItem[]; n
   return (
     <>
       <header className="adm-top glass">
-        <Link href="/admin" className="brand">ADGlam admin</Link>
+        <Link href="/admin" className="brand">{SITE.name} admin</Link>
         <nav className="adm-nav" aria-label="Admin">
           {items.map((n) => n.href
             ? <Link key={n.label} href={n.href} className={isActive(n.href) ? "active" : ""}>{n.label}{n.badge ? ` (${n.badge})` : ""}</Link>
@@ -38,7 +39,7 @@ export default function AdminHeader({ items, name, role }: { items: NavItem[]; n
 
       <div id="mm-menu" className={`mm-menu ${open ? "open" : ""}`} role="dialog" aria-modal="true" aria-label="Admin menu" aria-hidden={!open}>
         <div className="mm-top">
-          <span className="brand">ADGlam admin</span>
+          <span className="brand">{SITE.name} admin</span>
           <button ref={closeBtn} className="mm-burger x" aria-label="Close menu" onClick={() => setOpen(false)}><span /><span /><span /></button>
         </div>
         <nav className="mm-links" aria-label="Admin menu">

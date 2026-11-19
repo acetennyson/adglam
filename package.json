@@ -10,15 +10,17 @@
     "@paper-design/shaders-react": "latest",
     "@react-three/drei": "^9.114.0",
     "@react-three/fiber": "^8.17.10",
+    "firebase": "^11.0.0",
+    "firebase-admin": "^13.0.0",
     "next": "14.2.15",
+    "nodemailer": "^6.10.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "three": "^0.169.0",
-    "firebase": "^11.0.0",
-    "firebase-admin": "^13.0.0"
+    "three": "^0.169.0"
   },
   "devDependencies": {
     "@types/node": "^20",
+    "@types/nodemailer": "^6.4.24",
     "@types/react": "^18",
     "@types/three": "^0.169.0",
     "typescript": "^5"

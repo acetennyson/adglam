@@ -45,6 +45,6 @@ The site uses the same iframe address TikTok's own oEmbed returns (`/player/v1/I
 ## Contact page and inbox
 `/contact` saves messages to Firestore `messages` (server only). Editors and owners read them in `/admin/messages`, with an unread count in the admin nav.
 - Spam protection: hidden honeypot field, minimum time on page, and 5 messages per hour per visitor (hashed IP).
-- Optional email alerts: create a free Resend account, set `RESEND_API_KEY` and `CONTACT_TO_EMAIL` (and a verified `CONTACT_FROM_EMAIL` for production). Without them nothing is emailed.
+- Email alerts use Nodemailer over SMTP: set `MY_Mail` (where alerts go), `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS` and `MAIL_FROM` locally and in Vercel. For Gmail use an App Password (account needs 2-step verification). Owners get a "Send a test email" button in /admin/messages. If email fails the message is still saved and flagged "email failed".
 - The WhatsApp button uses `SITE.whatsapp` in `lib/site.ts`. Remove it there and in `app/contact/page.tsx` if the number is not on WhatsApp.
 - The homepage reels strip shows `HOME_REELS` (6) reels; change it in `lib/site.ts`.

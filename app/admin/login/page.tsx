@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { clientAuth } from "@/lib/firebase/client";
+import { SITE } from "@/lib/site";
 
 export default function Login() {
   const router = useRouter();
@@ -21,7 +22,7 @@ export default function Login() {
   return (
     <main className="adm-center">
       <form className="glass adm-card" onSubmit={submit}>
-        <h1 className="h2">ADGlam admin</h1>
+        <h1 className="h2">{SITE.name} admin</h1>
         <label>Email<input className="field" name="email" type="email" autoComplete="username" required /></label>
         <label>Password<input className="field" name="password" type="password" autoComplete="current-password" required /></label>
         {err && <p className="adm-err" role="alert">{err}</p>}

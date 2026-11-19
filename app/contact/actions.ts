@@ -3,6 +3,8 @@ import { createHash } from "crypto";
 import { headers } from "next/headers";
 import { Timestamp } from "firebase-admin/firestore";
 import { db } from "@/lib/firebase/admin";
+import { mailConfigured, mailError, messageEmail, sendMail } from "@/lib/mailer";
+import { SITE } from "@/lib/site";
 
 type R = { ok: boolean; error?: string };
 export const TOPICS = ["Book makeup", "Book photography", "Makeup + photography", "A question", "Collaboration"];
@@ -20,20 +22,11 @@ async function limited() {
   });
 }
 
-// Optional email alert through Resend. Set RESEND_API_KEY and CONTACT_TO_EMAIL to turn it on.
-async function notify(m: Record<string, string>) {
-  const key = process.env.RESEND_API_KEY, to = process.env.CONTACT_TO_EMAIL;
-  if (!key || !to) return;
-  try {
-    await fetch("https://api.resend.com/emails", {
-      method: "POST", headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
-      body: JSON.stringify({
-        from: process.env.CONTACT_FROM_EMAIL || "ADGlam <onboarding@resend.dev>", to: [to], ...(m.email ? { reply_to: m.email } : {}),
-        subject: `New message from ${m.name}: ${m.topic}`,
-        text: `${m.topic}\n\nName: ${m.name}\nPhone: ${m.phone || "-"}\nEmail: ${m.email || "-"}\nEvent date: ${m.eventDate || "-"}\n\n${m.message}`,
-      }),
-    });
-  } catch {}
+// Email alert to the owner. Never blocks the visitor: the message is already saved, and the result is stored on it.
+async function notify(m: { topic: string; name: string; phone: string; email: string; eventDate: string; message: string }): Promise<boolean | null> {
+  if (!mailConfigured()) return null;
+  try { await sendMail(messageEmail(m)); return true; }
+  catch (e) { console.error("contact email failed:", mailError(e)); return false; }
 }
 
 export async function sendMessage(i: { topic: string; name: string; phone: string; email: string; eventDate: string; message: string; website: string; elapsed: number }): Promise<R> {
@@ -51,8 +44,9 @@ export async function sendMessage(i: { topic: string; name: string; phone: strin
   try {
     if (await limited()) return fail("You have sent a few messages already. Please try again later or call us.");
     const doc = { topic: i.topic, name, phone, email, eventDate: i.eventDate, message, read: false, createdAt: Timestamp.now() };
-    await db().collection("messages").add(doc);
-    await notify({ topic: i.topic, name, phone, email, eventDate: i.eventDate, message });
+    const ref = await db().collection("messages").add(doc);
+    const emailed = await notify({ topic: i.topic, name, phone, email, eventDate: i.eventDate, message });
+    if (emailed !== null) await ref.update({ emailed }).catch(() => {});
     return { ok: true };
   } catch { return fail("Could not send right now. Please call us instead."); }
 }

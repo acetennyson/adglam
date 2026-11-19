@@ -2,7 +2,7 @@
 import { useTransition } from "react";
 import { deleteMessage, setRead } from "./actions";
 
-type Row = { id: string; topic: string; name: string; phone: string; email: string; eventDate: string; message: string; read: boolean; at: number };
+type Row = { id: string; topic: string; name: string; phone: string; email: string; eventDate: string; message: string; read: boolean; emailed: boolean | null; at: number };
 const wa = (p: string) => { const d = p.replace(/\D/g, ""); return d.length === 9 ? "237" + d : d; }; // 9-digit local Cameroon numbers get 237
 
 export default function MessagesClient({ rows }: { rows: Row[] }) {
@@ -12,7 +12,7 @@ export default function MessagesClient({ rows }: { rows: Row[] }) {
     <div className="adm-stack" aria-busy={pending}>
       {rows.map((m) => (
         <article key={m.id} className={`glass adm-card wide msg ${m.read ? "" : "new"}`}>
-          <div className="adm-row nb"><div><strong>{m.name}</strong> {!m.read && <span className="badge">new</span>}<br /><small>{m.topic} · {new Date(m.at).toLocaleString()}{m.eventDate && ` · event ${m.eventDate}`}</small></div></div>
+          <div className="adm-row nb"><div><strong>{m.name}</strong> {!m.read && <span className="badge">new</span>} {m.emailed === false && <span className="badge off">email failed</span>}<br /><small>{m.topic} · {new Date(m.at).toLocaleString()}{m.eventDate && ` · event ${m.eventDate}`}</small></div></div>
           <p className="msg-body">{m.message}</p>
           <div className="adm-acts">
             {m.phone && <><a className="btn sm" href={`tel:${m.phone}`}>Call {m.phone}</a><a className="btn sm ghost" href={`https://wa.me/${wa(m.phone)}`} target="_blank" rel="noreferrer">WhatsApp</a></>}

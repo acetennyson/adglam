@@ -2,6 +2,8 @@
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { PLATFORM_LABEL, embedSrc, type Platform, type Reel } from "@/lib/embed";
+import { SITE } from "@/lib/site";
+import { city, tiktokHandle } from "@/lib/contact";
 
 const PATHS: Record<string, string[]> = {
   share: ["M4 12v7a1 1 0 001 1h14a1 1 0 001-1v-7", "M16 6l-4-4-4 4", "M12 2v13"],
@@ -49,7 +51,7 @@ export default function ReelFeed({ reels, startId, siteUrl }: { reels: Reel[]; s
     setPlaying(-1); setPaused(false); setSheet(false);
     const t = setTimeout(() => setPlaying(active), 300);
     const r = reels[active];
-    if (r) { history.replaceState(null, "", `/reels/${r.id}`); document.title = `${r.title} | ADGlam`; }
+    if (r) { history.replaceState(null, "", `/reels/${r.id}`); document.title = `${r.title} | ${SITE.name}`; }
     return () => clearTimeout(t);
   }, [active, reels]);
   useEffect(() => { const t = setTimeout(() => setHint(false), 8000); return () => clearTimeout(t); }, []);
@@ -91,7 +93,7 @@ export default function ReelFeed({ reels, startId, siteUrl }: { reels: Reel[]; s
       <div ref={box} className="feed" aria-label="Reels feed">
         {reels.map((r, i) => {
           const p = r.platform as Platform, ctl = p !== "instagram", live = i === playing;
-          const tags = [r.category, "ADGlam", "Buea"].map((t) => "#" + t.toLowerCase().replace(/\s+/g, ""));
+          const tags = [r.category, SITE.name, city].map((t) => "#" + t.toLowerCase().replace(/\s+/g, ""));
           return (
             <section key={r.id} data-i={i} ref={(el) => { slides.current[i] = el; }} className="rf-slide" aria-label={`Reel ${i + 1} of ${reels.length}: ${r.title}`}>
               <div className="rf-stage">
@@ -103,7 +105,7 @@ export default function ReelFeed({ reels, startId, siteUrl }: { reels: Reel[]; s
                   {live && ctl && <div className="rf-layer" onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={cancel} onPointerLeave={cancel} onContextMenu={(e) => e.preventDefault()} />}
                   {live && paused && <div className="rf-paused" aria-hidden><Icon n="play" /></div>}
                   <div className="rf-cap">
-                    <strong className="who">@adglam</strong>
+                    <strong className="who">{tiktokHandle()}</strong>
                     <span className="ttl">{r.title}</span>
                     <span className="tags">{tags.join(" ")}</span>
                     {hint && i === active && ctl && <span className="hint">Hold the video for more</span>}

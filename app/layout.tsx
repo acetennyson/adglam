@@ -2,16 +2,17 @@ import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Montserrat } from "next/font/google";
 import { SITE } from "@/lib/site";
 import "./globals.css";
+import { city, country } from "@/lib/contact";
 
 const display = Playfair_Display({ subsets: ["latin"], variable: "--font-display", style: ["normal", "italic"] });
 const body = Montserrat({ subsets: ["latin"], variable: "--font-body" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
-  title: { default: SITE.title, template: "%s | ADGlam" },
+  title: { default: SITE.title, template: `%s | ${SITE.name}` },
   description: SITE.description,
   applicationName: SITE.name,
-  keywords: ["makeup artist Buea", "mobile photography Buea", "bridal makeup Cameroon", "glam makeup", "event photography", "ADGlam"],
+  keywords: [`makeup artist ${city}`, `mobile photography ${city}`, "bridal makeup Cameroon", "glam makeup", "event photography", SITE.name],
   alternates: { canonical: "/" },
   openGraph: { type: "website", url: "/", siteName: SITE.name, title: SITE.title, description: SITE.description, locale: "en_CM" },
   twitter: { card: "summary_large_image", title: SITE.title, description: SITE.description },
@@ -31,8 +32,8 @@ const jsonLd = {
   description: SITE.description,
   url: SITE.url,
   telephone: SITE.phone,
-  address: { "@type": "PostalAddress", streetAddress: "Mayor's Street", addressLocality: "Buea", addressCountry: "CM" },
-  areaServed: "Buea",
+  address: { "@type": "PostalAddress", addressLocality: city, addressCountry: country },
+  areaServed: city,
   sameAs: [SITE.tiktok],
   makesOffer: [
     { "@type": "Offer", itemOffered: { "@type": "Service", name: "Makeup: glam, natural and bridal" } },

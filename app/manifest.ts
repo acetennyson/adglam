@@ -1,9 +1,11 @@
 import type { MetadataRoute } from "next";
+import { SITE } from "@/lib/site";
+import { city } from "@/lib/contact";
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "ADGlam: Makeup & mobile photography",
-    short_name: "ADGlam",
-    description: "Makeup and mobile photography that comes to you in Buea.",
+    short_name: SITE.name,
+    description: `Makeup and mobile photography that comes to you in ${city}.`,
     start_url: "/",
     display: "standalone",
     background_color: "#fbefea",

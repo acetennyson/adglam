@@ -4,15 +4,16 @@ import SiteFooter from "@/components/SiteFooter";
 import ContactForm from "@/components/ContactForm";
 import CopyButton from "@/components/CopyButton";
 import { SITE } from "@/lib/site";
+import { city, phonePretty, tiktokHandle } from "@/lib/contact";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Book makeup or mobile photography in Buea, or ask a question. Send ADGlam a message, call or reach out on TikTok.",
+  description: `Book makeup or mobile photography in ${city}, or ask a question. Send ${SITE.name} a message, call or reach out on TikTok.`,
   alternates: { canonical: "/contact" },
 };
 
 export default function ContactPage() {
-  const pretty = "+237 670 724 330";
+  const pretty = phonePretty();
   return (
     <>
     <main>
@@ -26,7 +27,7 @@ export default function ContactPage() {
             <h2 className="h2 sm">Reach us directly</h2>
             <p><strong>Call</strong><br /><a href={`tel:${SITE.phone}`}>{pretty}</a></p>
             <div className="adm-acts"><a className="btn sm" href={`tel:${SITE.phone}`}>Call now</a><a className="btn sm ghost" href={`https://wa.me/${SITE.whatsapp}`} target="_blank" rel="noreferrer">WhatsApp</a><CopyButton text={pretty} label="Copy number" /></div>
-            <p><strong>TikTok</strong><br /><a href={SITE.tiktok} target="_blank" rel="noreferrer">@ADGlam</a></p>
+            <p><strong>TikTok</strong><br /><a href={SITE.tiktok} target="_blank" rel="noreferrer">{tiktokHandle()}</a></p>
             <p><strong>Based in</strong><br />{SITE.location}<br /><small>We come to you: home, office, events and more.</small></p>
           </aside>
           <ContactForm />

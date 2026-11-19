@@ -1,6 +1,7 @@
 import { db } from "@/lib/firebase/admin";
 import { hashToken } from "@/lib/auth";
 import AcceptForm from "./AcceptForm";
+import { SITE } from "@/lib/site";
 
 export default async function Accept({ searchParams }: { searchParams: { token?: string } }) {
   const token = searchParams.token || "";
@@ -9,7 +10,7 @@ export default async function Accept({ searchParams }: { searchParams: { token?:
   return (
     <main className="adm-center">
       <div className="glass adm-card">
-        <h1 className="h2">Join ADGlam admin</h1>
+        <h1 className="h2">Join {SITE.name} admin</h1>
         {valid ? <AcceptForm token={token} email={inv!.email} role={inv!.role} /> : <p className="adm-err">This invite link is invalid, already used or expired. Ask the owner for a new one.</p>}
       </div>
     </main>

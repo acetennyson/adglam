@@ -4,11 +4,13 @@ import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import ReelsGallery from "@/components/ReelsGallery";
 import { getReels } from "@/lib/reels";
+import { SITE } from "@/lib/site";
+import { city } from "@/lib/contact";
 
 export const revalidate = 60;
 export const metadata: Metadata = {
   title: "Reels",
-  description: "Makeup looks and photo sessions by ADGlam in Buea: glam, bridal, natural, events and content. Watch the latest reels.",
+  description: `Makeup looks and photo sessions by ${SITE.name} in ${city}: glam, bridal, natural, events and content. Watch the latest reels.`,
   alternates: { canonical: "/reels" },
 };
 

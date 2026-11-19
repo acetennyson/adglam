@@ -31,7 +31,7 @@ export default function SiteNav() {
   return (
     <>
       <header className="nav glass">
-        <Link href="/" className="brand">ADGlam</Link>
+        <Link href="/" className="brand">{SITE.name}</Link>
         <nav aria-label="Main">{ITEMS.map((n) => <Link key={n.label} href={n.href} className={active(n.href) ? "on" : ""}>{n.label}</Link>)}</nav>
         <span className="nav-tools"><ThemeToggle /></span>
         <button className="mm-burger" aria-label="Open menu" aria-expanded={open} aria-controls="mm-menu" onClick={() => setOpen(true)}><span /><span /><span /></button>
@@ -39,7 +39,7 @@ export default function SiteNav() {
 
       <div id="mm-menu" className={`mm-menu ${open ? "open" : ""}`} role="dialog" aria-modal="true" aria-label="Site menu" aria-hidden={!open}>
         <div className="mm-top">
-          <span className="brand">ADGlam</span>
+          <span className="brand">{SITE.name}</span>
           <button ref={closeBtn} className="mm-burger x" aria-label="Close menu" onClick={() => setOpen(false)}><span /><span /><span /></button>
         </div>
         <nav className="mm-links" aria-label="Site menu">

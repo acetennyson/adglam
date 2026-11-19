@@ -1,4 +1,4 @@
-export const CREDIT = { name: "Ado Daniel Nji", url: "https://adodanielnj.vercel.app/" };
+export const CREDIT = { name: "Ado Daniel NJ", url: "https://adodanielnj.vercel.app/" };
 
 export const SITE = {
   name: "ADGlam",
@@ -7,7 +7,7 @@ export const SITE = {
   description: "Makeup and mobile photography that comes to you in Buea, Cameroon. Glam, natural and bridal looks, portraits, events and content, at home, the office or on location.",
   phone: "+237670724330",
   whatsapp: "237670724330", // digits only, no +
-  location: "Mayor's Street, Buea",
+  location: "Buea, Cameroon",
   tiktok: "https://www.tiktok.com/@adianenow",
 };
 
