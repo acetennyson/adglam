@@ -10,7 +10,7 @@ export default async function Panel({ children }: { children: React.ReactNode })
   const items: NavItem[] = [
     { label: "Dashboard", href: "/admin" },
     { label: "Reels", href: "/admin/reels" },
-    ...(canInbox ? [{ label: "Messages", href: "/admin/messages", badge: unread }] : []),
+    ...(canInbox ? [{ label: "Messages", href: "/admin/messages", badge: unread }, { label: "Insights", href: "/admin/insights" }, { label: "Campaigns", href: "/admin/campaigns" }] : []),
     ...(me.role === "owner" ? [{ label: "Team", href: "/admin/team" }] : []),
     { label: "Blog", soon: true },
     { label: "Contact info", soon: true },

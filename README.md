@@ -56,3 +56,8 @@ Full tracking runs only after a visitor clicks Accept on the cookie banner; Post
 - No names, messages or phone numbers are ever sent to analytics.
 - After deploying, confirm in PostHog that visits show a country and city. If they show your hosting location instead, tell me.
 - `/privacy` is a plain-language notice matching what the code does. Have it reviewed against your local requirements.
+
+## Admin: Insights and Campaigns
+`/admin/insights` (editors and owners) reads your PostHog data back: visitors, sources, places, interest by reel category, contact topics, top reels, visit hours and a 12-month season view. `/admin/campaigns` makes tagged links (UTM) and shows visitors, leads and bookings per campaign, plus cost per lead if you enter a budget.
+- Setup: in PostHog create a **personal** API key with only **Query: Read**, then set `POSTHOG_PERSONAL_API_KEY` and `POSTHOG_PROJECT_ID` (the number in your PostHog URL) in Vercel and redeploy.
+- Each panel loads on its own and shows the error if a query fails. Results are cached for about 5 minutes.

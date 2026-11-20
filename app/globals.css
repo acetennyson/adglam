@@ -230,3 +230,16 @@ html[data-q="0"] .stage .glass,html[data-q="0"] .nav.glass{backdrop-filter:none;
 .linkbtn{background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer;text-decoration:underline;text-underline-offset:3px}.linkbtn:hover{color:var(--rose-d)}
 .sf-base a{text-decoration:underline;text-underline-offset:3px}.sf-base a:hover{color:var(--rose-d)}
 .prose{max-width:760px}.prose h2{font-family:var(--display);font-size:1.4rem;margin:2rem 0 .4rem}.prose p{color:var(--muted)}.prose a{color:var(--rose-d);text-decoration:underline}
+
+/* insights + campaigns */
+.ins-head{display:flex;flex-wrap:wrap;gap:1rem;align-items:flex-end;justify-content:space-between;margin-bottom:1rem}.ins-head .lede{margin:.3rem 0 0}.ins-head .chips{margin:0}
+.kpis{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.kpi{padding:1rem 1.1rem;display:grid;gap:.15rem;border-radius:20px}.kpi strong{font-family:var(--display);font-size:1.9rem;line-height:1.1}.kpi small{color:var(--muted)}
+.tips{margin:0;padding-left:1.1rem;display:grid;gap:.45rem}
+.bars{display:grid;gap:.55rem}.bar-row{display:grid;grid-template-columns:minmax(80px,32%) 1fr auto;gap:.2rem .7rem;align-items:center;font-size:.88rem}
+.bar-row .bl{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.bar-row .bt{height:10px;border-radius:99px;background:var(--glass-b);overflow:hidden}
+.bar-row .bt i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--rose),var(--rose-d))}.bar-row small{grid-column:2/4;color:var(--muted);margin-top:-.2rem}
+.cols{display:flex;align-items:flex-end;gap:3px;height:150px;padding-top:.4rem}.col{flex:1;min-width:0;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:4px}
+.col i{display:block;width:100%;border-radius:4px 4px 0 0;background:linear-gradient(180deg,var(--rose),var(--rose-d))}.col span{font-size:.62rem;color:var(--muted);height:.9rem;white-space:nowrap}
+.camp{align-items:flex-start}.camp-res{display:flex;flex-wrap:wrap;gap:.3rem 1rem;font-size:.85rem;color:var(--muted)}.camp-res b{color:var(--ink)}
+code{background:var(--glass);padding:.1rem .4rem;border-radius:6px;font-size:.85em}
