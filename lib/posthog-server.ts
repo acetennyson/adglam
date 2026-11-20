@@ -2,7 +2,7 @@ import "server-only";
 
 // Server-side event, e.g. "booking_confirmed" when the owner marks a message as booked.
 export async function captureServer(event: string, distinctId: string, properties: Record<string, unknown> = {}) {
-  const key = process.env.POSTHOG_KEY;
+  const key = process.env.NEXT_PUBLIC_POSTHOG_KEY;
   if (!key) return;
   const host = `https://${process.env.NEXT_PUBLIC_POSTHOG_REGION === "eu" ? "eu" : "us"}.i.posthog.com`;
   try {
