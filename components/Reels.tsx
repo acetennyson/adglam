@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { PLATFORM_LABEL, type Reel } from "@/lib/embed";
 import ReelPlayer from "./ReelPlayer";
+import { track } from "@/lib/analytics";
 
 export default function Reels({ reels }: { reels: Reel[] }) {
   const [open, setOpen] = useState<Reel | null>(null);
@@ -12,7 +13,7 @@ export default function Reels({ reels }: { reels: Reel[] }) {
       <p className="lede">Looks and shoots from real sessions. Tap a reel to watch.</p>
       <div className="rail">
         {reels.map((r) => (
-          <button key={r.id} className="reel" disabled={!r.embedUrl} onClick={() => r.embedUrl && setOpen(r)} aria-label={`Play: ${r.title}`}
+          <button key={r.id} className="reel" disabled={!r.embedUrl} onClick={() => { if (!r.embedUrl) return; setOpen(r); track("reel_open", { reel_id: r.id, title: r.title, category: r.category, platform: r.platform, from: "home" }); }} aria-label={`Play: ${r.title}`}
             style={{ background: `linear-gradient(160deg, ${r.tone[0]}, ${r.tone[1]})` }}>
             {r.cover && <img src={r.cover} alt="" loading="lazy" referrerPolicy="no-referrer" />}
             {r.platform !== "placeholder" && <span className="glass pill tag">{PLATFORM_LABEL[r.platform]}</span>}

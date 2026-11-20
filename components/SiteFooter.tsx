@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { CREDIT, SITE } from "@/lib/site";
 import { city, phonePretty, tiktokHandle } from "@/lib/contact";
+import { analyticsEnabled } from "@/lib/analytics";
+import CookieSettings from "./CookieSettings";
 
 export default function SiteFooter() {
   return (
@@ -29,7 +31,7 @@ export default function SiteFooter() {
         </div>
       </div>
       <div className="sf-base">
-        <span>© {new Date().getFullYear()} {SITE.name}. All rights reserved.</span>
+        <span>© {new Date().getFullYear()} {SITE.name}. <Link href="/privacy">Privacy</Link>{analyticsEnabled && <> · <CookieSettings /></>}</span>
         <span className="sf-credit">Website by <a href={CREDIT.url} target="_blank" rel="noopener">{CREDIT.name}↗</a></span>
       </div>
     </footer>

@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { PLATFORM_LABEL, type Reel } from "@/lib/embed";
+import { track } from "@/lib/analytics";
 
 export default function ReelsGallery({ reels, chips = true }: { reels: Reel[]; chips?: boolean }) {
   const cats = ["All", ...Array.from(new Set(reels.map((r) => r.category)))];
@@ -24,7 +25,7 @@ export default function ReelsGallery({ reels, chips = true }: { reels: Reel[]; c
             {r.embedUrl && <i className="play" aria-hidden />}
           </>);
           return r.embedUrl
-            ? <Link key={r.id} href={`/reels/${r.id}`} className="reel" style={style} aria-label={`Open reel: ${r.title}`}>{inner}</Link>
+            ? <Link key={r.id} href={`/reels/${r.id}`} className="reel" style={style} aria-label={`Open reel: ${r.title}`} onClick={() => track("reel_open", { reel_id: r.id, title: r.title, category: r.category, platform: r.platform, from: "gallery" })}>{inner}</Link>
             : <div key={r.id} className="reel" style={style}>{inner}</div>;
         })}
       </div>

@@ -1,6 +1,7 @@
 "use client";
 import { useRef, useState, useTransition } from "react";
 import { sendMessage } from "@/app/contact/actions";
+import { distinctId, track } from "@/lib/analytics";
 
 const TOPICS = ["Book makeup", "Book photography", "Makeup + photography", "A question", "Collaboration"];
 
@@ -12,8 +13,9 @@ export default function ContactForm() {
     e.preventDefault(); setErr("");
     const f = new FormData(e.currentTarget), g = (k: string) => String(f.get(k) || "");
     start(async () => {
-      const r = await sendMessage({ topic, name: g("name"), phone: g("phone"), email: g("email"), eventDate: g("eventDate"), message: msg, website: g("website"), elapsed: Date.now() - t0.current });
-      if (r.ok) setDone(g("name").split(" ")[0]); else setErr(r.error || "Something went wrong.");
+      const r = await sendMessage({ topic, name: g("name"), phone: g("phone"), email: g("email"), eventDate: g("eventDate"), message: msg, website: g("website"), elapsed: Date.now() - t0.current, ph: distinctId() });
+      if (r.ok) { setDone(g("name").split(" ")[0]); track("contact_submit", { topic, has_phone: !!g("phone"), has_email: !!g("email"), has_event_date: !!g("eventDate") }); }
+      else { setErr(r.error || "Something went wrong."); track("contact_error", { topic }); }
     });
   }
   if (done) return (

@@ -221,3 +221,12 @@ html[data-q="0"] .stage .glass,html[data-q="0"] .nav.glass{backdrop-filter:none;
 .sf ul a{transition:color .2s}.sf ul a:hover,.sf-credit a:hover{color:var(--rose-d)}
 .sf-base{max-width:1180px;margin:2rem auto 0;padding-top:1.2rem;border-top:1px solid var(--glass-b);display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;justify-content:space-between;font-size:.8rem;color:var(--muted)}
 .sf-credit a{color:var(--rose-d);font-weight:600;border-bottom:1px solid transparent;transition:border-color .2s}.sf-credit a:hover{border-color:currentColor}
+
+/* consent banner, footer links, privacy page */
+.cb{position:fixed;z-index:90;left:12px;right:12px;bottom:12px;max-width:520px;padding:1rem 1.1rem;display:grid;gap:.8rem;border-radius:22px;background:var(--bg)}
+@media(min-width:640px){.cb{left:20px;right:auto;bottom:20px}}
+.cb p{margin:0;font-size:.85rem;color:var(--muted)}.cb p strong{color:var(--ink);font-size:.95rem}.cb a{color:var(--rose-d);text-decoration:underline}
+.cb-actions{display:flex;gap:.6rem}.cb-actions .btn{flex:1;text-align:center}
+.linkbtn{background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer;text-decoration:underline;text-underline-offset:3px}.linkbtn:hover{color:var(--rose-d)}
+.sf-base a{text-decoration:underline;text-underline-offset:3px}.sf-base a:hover{color:var(--rose-d)}
+.prose{max-width:760px}.prose h2{font-family:var(--display);font-size:1.4rem;margin:2rem 0 .4rem}.prose p{color:var(--muted)}.prose a{color:var(--rose-d);text-decoration:underline}

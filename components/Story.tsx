@@ -2,6 +2,8 @@
 import dynamic from "next/dynamic";
 import LiquidLogo from "./LiquidLogo";
 import { useScrollProgress } from "@/lib/useScrollProgress";
+import { useEffect, useRef } from "react";
+import { track } from "@/lib/analytics";
 
 const Scene = dynamic(() => import("./Scene"), { ssr: false });
 
@@ -21,6 +23,11 @@ function Reveal({ text }: { text: string }) {
 
 export default function Story() {
   const { el, progress, chapter, visible } = useScrollProgress(chapters.length);
+  const seen = useRef(new Set<number>());
+  useEffect(() => {
+    if (seen.current.has(chapter)) return; seen.current.add(chapter);
+    track("story_chapter", { chapter: chapter + 1, title: chapters[chapter].title });
+  }, [chapter]);
   return (
     <div ref={el} className="story" style={{ height: `${chapters.length * 140}vh` }}>
       <div className="stage">

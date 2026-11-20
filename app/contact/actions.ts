@@ -29,7 +29,7 @@ async function notify(m: { topic: string; name: string; phone: string; email: st
   catch (e) { console.error("contact email failed:", mailError(e)); return false; }
 }
 
-export async function sendMessage(i: { topic: string; name: string; phone: string; email: string; eventDate: string; message: string; website: string; elapsed: number }): Promise<R> {
+export async function sendMessage(i: { topic: string; name: string; phone: string; email: string; eventDate: string; message: string; website: string; elapsed: number; ph?: string }): Promise<R> {
   if (i.website) return { ok: true };                       // honeypot filled: act like it worked, store nothing
   if (i.elapsed < 2500) return fail("That was very quick. Please try again.");
   const name = i.name.trim(), phone = i.phone.trim(), email = i.email.trim().toLowerCase(), message = i.message.trim();
@@ -43,7 +43,7 @@ export async function sendMessage(i: { topic: string; name: string; phone: strin
   if (message.length > 5000) return fail("Please keep it under 5000 characters.");
   try {
     if (await limited()) return fail("You have sent a few messages already. Please try again later or call us.");
-    const doc = { topic: i.topic, name, phone, email, eventDate: i.eventDate, message, read: false, createdAt: Timestamp.now() };
+    const doc = { topic: i.topic, name, phone, email, eventDate: i.eventDate, message, read: false, ph: /^[\w-]{8,64}$/.test(i.ph || "") ? i.ph : "", createdAt: Timestamp.now() };
     const ref = await db().collection("messages").add(doc);
     const emailed = await notify({ topic: i.topic, name, phone, email, eventDate: i.eventDate, message });
     if (emailed !== null) await ref.update({ emailed }).catch(() => {});

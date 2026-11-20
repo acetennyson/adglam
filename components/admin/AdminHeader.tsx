@@ -16,6 +16,7 @@ export default function AdminHeader({ items, name, role }: { items: NavItem[]; n
   const isActive = (h?: string) => !!h && (h === "/admin" ? path === "/admin" : path.startsWith(h));
 
   useEffect(() => { setOpen(false); }, [path]);
+  useEffect(() => { try { localStorage.setItem("adg-internal", "1"); } catch {} }, []); // the owner's browser is never counted in analytics
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     if (open) closeBtn.current?.focus();

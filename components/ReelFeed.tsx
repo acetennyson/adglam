@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { PLATFORM_LABEL, embedSrc, type Platform, type Reel } from "@/lib/embed";
 import { SITE } from "@/lib/site";
 import { city, tiktokHandle } from "@/lib/contact";
+import { track } from "@/lib/analytics";
 
 const PATHS: Record<string, string[]> = {
   share: ["M4 12v7a1 1 0 001 1h14a1 1 0 001-1v-7", "M16 6l-4-4-4 4", "M12 2v13"],
@@ -60,7 +61,7 @@ export default function ReelFeed({ reels, startId, siteUrl }: { reels: Reel[]; s
     const n = Math.min(reels.length - 1, Math.max(0, active + d));
     slides.current[n]?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [active, reels.length]);
-  const openSheet = () => { send(player.current, reels[active].platform as Platform, "pause"); setSheet(true); setHint(false); };
+  const openSheet = () => { track("reel_menu_open", { reel_id: reels[active].id }); send(player.current, reels[active].platform as Platform, "pause"); setSheet(true); setHint(false); };
   const closeSheet = () => { setSheet(false); if (!paused) send(player.current, reels[active].platform as Platform, "play"); };
   const toggle = () => { const p = reels[active].platform as Platform; send(player.current, p, paused ? "play" : "pause"); setPaused(!paused); };
 
@@ -86,6 +87,13 @@ export default function ReelFeed({ reels, startId, siteUrl }: { reels: Reel[]; s
   };
   const up = () => { clearTimeout(press.current.t); if (!press.current.long && !press.current.moved) toggle(); };
   const cancel = () => clearTimeout(press.current.t);
+
+  useEffect(() => {
+    if (playing < 0) return;
+    const r = reels[playing];
+    if (r) track("reel_view", { reel_id: r.id, title: r.title, category: r.category, platform: r.platform, position: playing + 1 });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [playing]);
 
   const cur = reels[active], curUrl = `${siteUrl}/reels/${cur.id}`;
   return (
@@ -132,7 +140,7 @@ export default function ReelFeed({ reels, startId, siteUrl }: { reels: Reel[]; s
           <div className="glass sheet" onClick={(e) => e.stopPropagation()}>
             <strong>{cur.title}</strong>
             <a className="btn" href={`https://wa.me/?text=${encodeURIComponent(`${cur.title} ${curUrl}`)}`} target="_blank" rel="noreferrer">Share on WhatsApp</a>
-            <button className="btn ghost" onClick={async () => { try { await navigator.clipboard.writeText(curUrl); setCopied(true); setTimeout(() => setCopied(false), 2000); } catch {} }}>{copied ? "Link copied" : "Copy link"}</button>
+            <button className="btn ghost" onClick={async () => { try { await navigator.clipboard.writeText(curUrl); track("reel_share", { method: "copy", reel_id: cur.id }); setCopied(true); setTimeout(() => setCopied(false), 2000); } catch {} }}>{copied ? "Link copied" : "Copy link"}</button>
             {typeof navigator !== "undefined" && typeof navigator.share === "function" && <button className="btn ghost" onClick={() => navigator.share({ title: cur.title, url: curUrl }).catch(() => {})}>Share…</button>}
             <a className="btn ghost" href={cur.url} target="_blank" rel="noreferrer">Watch on {PLATFORM_LABEL[cur.platform as Platform]} ↗</a>
             <Link className="btn ghost" href="/#book">Book a similar look</Link>

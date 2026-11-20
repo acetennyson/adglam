@@ -48,3 +48,11 @@ The site uses the same iframe address TikTok's own oEmbed returns (`/player/v1/I
 - Email alerts use Nodemailer over SMTP: set `MY_Mail` (where alerts go), `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS` and `MAIL_FROM` locally and in Vercel. For Gmail use an App Password (account needs 2-step verification). Owners get a "Send a test email" button in /admin/messages. If email fails the message is still saved and flagged "email failed".
 - The WhatsApp button uses `SITE.whatsapp` in `lib/site.ts`. Remove it there and in `app/contact/page.tsx` if the number is not on WhatsApp.
 - The homepage reels strip shows `HOME_REELS` (6) reels; change it in `lib/site.ts`.
+
+## Analytics (PostHog) and consent
+Full tracking runs only after a visitor clicks Accept on the cookie banner; PostHog is not even loaded before that, and Decline (or "Cookie settings" in the footer) removes it. Data goes through your own domain (`/ingest`) so ad blockers do not hide visitors. The admin browser is never counted.
+- Setup: create a free PostHog project, copy its Project API key into `NEXT_PUBLIC_POSTHOG_KEY` and set `NEXT_PUBLIC_POSTHOG_REGION` (`us` or `eu`) locally and in Vercel, then redeploy.
+- Events: `$pageview`, `story_chapter`, `reel_open`, `reel_view`, `reel_menu_open`, `reel_share`, `cta_call`, `cta_whatsapp`, `cta_email`, `cta_book`, `cta_contact`, `outbound_tiktok`, `outbound_reel_platform`, `contact_submit`, `contact_error`, and server-side `booking_confirmed` (when you press "Mark as booked" in /admin/messages).
+- No names, messages or phone numbers are ever sent to analytics.
+- After deploying, confirm in PostHog that visits show a country and city. If they show your hosting location instead, tell me.
+- `/privacy` is a plain-language notice matching what the code does. Have it reviewed against your local requirements.
