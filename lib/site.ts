@@ -8,7 +8,7 @@ export const SITE = {
   phone: "+237670724330",
   whatsapp: "237670724330", // digits only, no +
   location: "Buea, Cameroon",
-  tiktok: "https://www.tiktok.com/@adianenow",
+  tiktok: "https://www.tiktok.com/@a_dglam",
 };
 
 // How many reels the homepage "Recent work" strip shows (the rest live on /reels).
