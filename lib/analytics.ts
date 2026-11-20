@@ -1,7 +1,7 @@
 // Client-side analytics helpers. PostHog is only loaded AFTER the visitor accepts, and removed if they decline.
 export type Consent = "granted" | "denied" | null;
-export const analyticsEnabled = !!process.env.NEXT_PUBLIC_POSTHOG_KEY;
-const KEY = process.env.NEXT_PUBLIC_POSTHOG_KEY || "";
+export const analyticsEnabled = !!process.env.POSTHOG_KEY;
+const KEY = process.env.POSTHOG_KEY || "";
 const REGION = process.env.NEXT_PUBLIC_POSTHOG_REGION === "eu" ? "eu" : "us";
 const CONSENT_KEY = "adg-consent";
 
