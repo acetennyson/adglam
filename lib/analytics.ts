@@ -5,6 +5,8 @@ const KEY = process.env.POSTHOG_KEY || "";
 const REGION = process.env.NEXT_PUBLIC_POSTHOG_REGION === "eu" ? "eu" : "us";
 const CONSENT_KEY = "adg-consent";
 
+console.log("POSTHOG", [analyticsEnabled, KEY, REGION])
+
 type PH = typeof import("posthog-js").default;
 let ph: PH | null = null;
 let loading: Promise<void> | null = null;
