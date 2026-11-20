@@ -13,3 +13,10 @@ export const SITE = {
 
 // How many reels the homepage "Recent work" strip shows (the rest live on /reels).
 export const HOME_REELS = 6;
+
+// The face of the brand. Add her photo to /public (for example "/enow-adian.jpg") and put the path in `photo`.
+export const FOUNDER = {
+  name: "Enow Adian M",
+  role: "Founder, makeup artist and photographer",
+  photo: "",
+};

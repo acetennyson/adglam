@@ -15,7 +15,9 @@ export default function SiteFooter() {
         <div>
           <h3>Explore</h3>
           <ul>
-            <li><Link href="/#services">Services</Link></li>
+            <li><Link href="/about">About</Link></li>
+            <li><Link href="/makeup">Makeup</Link></li>
+            <li><Link href="/photography">Photography</Link></li>
             <li><Link href="/reels">Reels</Link></li>
             <li><Link href="/#book">Book a session</Link></li>
             <li><Link href="/contact">Contact</Link></li>

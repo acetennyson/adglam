@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Montserrat } from "next/font/google";
-import { SITE } from "@/lib/site";
+import { FOUNDER, SITE } from "@/lib/site";
 import Analytics from "@/components/Analytics";
 import "./globals.css";
 import { city, country } from "@/lib/contact";
@@ -15,6 +15,15 @@ export const metadata: Metadata = {
   applicationName: SITE.name,
   keywords: [`makeup artist ${city}`, `mobile photography ${city}`, "bridal makeup Cameroon", "glam makeup", "event photography", SITE.name],
   alternates: { canonical: "/" },
+  // Site-ownership tags for the webmaster tools. Each is only rendered when its variable is set.
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION,
+    yandex: process.env.YANDEX_SITE_VERIFICATION,
+    other: {
+      ...(process.env.BING_SITE_VERIFICATION ? { "msvalidate.01": process.env.BING_SITE_VERIFICATION } : {}),
+      ...(process.env.PINTEREST_SITE_VERIFICATION ? { "p:domain_verify": process.env.PINTEREST_SITE_VERIFICATION } : {}),
+    },
+  },
   openGraph: { type: "website", url: "/", siteName: SITE.name, title: SITE.title, description: SITE.description, locale: "en_CM" },
   twitter: { card: "summary_large_image", title: SITE.title, description: SITE.description },
   appleWebApp: { capable: true, title: SITE.name, statusBarStyle: "default" },
@@ -36,6 +45,7 @@ const jsonLd = {
   address: { "@type": "PostalAddress", addressLocality: city, addressCountry: country },
   areaServed: city,
   sameAs: [SITE.tiktok],
+  founder: { "@type": "Person", name: FOUNDER.name, url: `${SITE.url}/about` },
   makesOffer: [
     { "@type": "Offer", itemOffered: { "@type": "Service", name: "Makeup: glam, natural and bridal" } },
     { "@type": "Offer", itemOffered: { "@type": "Service", name: "Mobile photography: portraits, events, lifestyle, content" } },

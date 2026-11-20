@@ -7,6 +7,7 @@ import { SITE } from "@/lib/site";
 
 const ITEMS = [
   { label: "Services", href: "/#services" },
+  { label: "About", href: "/about" },
   { label: "Reels", href: "/reels" },
   { label: "Book", href: "/#book" },
   { label: "Contact", href: "/contact" },
@@ -17,7 +18,7 @@ export default function SiteNav() {
   const path = usePathname();
   const [open, setOpen] = useState(false);
   const closeBtn = useRef<HTMLButtonElement>(null);
-  const active = (h: string) => (h === "/reels" ? path.startsWith("/reels") : h === "/contact" ? path === "/contact" : false);
+  const active = (h: string) => (h === "/reels" ? path.startsWith("/reels") : h === "/contact" || h === "/about" ? path === h : false);
 
   useEffect(() => { setOpen(false); }, [path]);
   useEffect(() => {

@@ -4,11 +4,12 @@ import LiquidLogo from "./LiquidLogo";
 import { useScrollProgress } from "@/lib/useScrollProgress";
 import { useEffect, useRef } from "react";
 import { track } from "@/lib/analytics";
+import { city } from "@/lib/contact";
 
 const Scene = dynamic(() => import("./Scene"), { ssr: false });
 
 const chapters = [
-  { kicker: "Look beautiful. Capture moments.", title: "Remember how you felt.", body: "The morning of a wedding. A birthday shoot. The day the brand finally launched. ADGlam does your makeup and photographs the moment, so you keep the feeling and not just the picture.", keep: "Anytime, anywhere", cta: true },
+  { kicker: `Makeup & mobile photography in ${city}`, title: "Remember how you felt.", body: "The morning of a wedding. A birthday shoot. The day the brand finally launched. ADGlam does your makeup and photographs the moment, so you keep the feeling and not just the picture.", keep: "Anytime, anywhere", cta: true },
   { kicker: "7:40 a.m. The car is almost here.", title: "The hour before everything.", body: "This is when nerves turn into excitement. We arrive at your door with the whole kit, and the next hour is yours: calm music, a steady hand and a look chosen around your day.", keep: "Glam, natural or bridal" },
   { kicker: "Soft strokes. Slow breathing.", title: "Skin that feels like you.", body: "Nothing is copied from a template. We start with your skin, your outfit and the way you want to be remembered, then build the look one careful layer at a time.", keep: "Professional products, clean tools" },
   { kicker: "The mirror opens.", title: "The moment you see it.", body: "That small pause when you look up and recognise yourself, only better. It is the part worth slowing down for, so we never rush it.", keep: "Flexible scheduling that works for you" },
