@@ -5,12 +5,13 @@ import SiteFooter from "@/components/SiteFooter";
 import ReelsGallery from "@/components/ReelsGallery";
 import { getReels } from "@/lib/reels";
 import { SITE } from "@/lib/site";
-import { city } from "@/lib/contact";
+import { reach } from "@/lib/contact";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 export const revalidate = 60;
 export const metadata: Metadata = {
   title: "Reels",
-  description: `Makeup looks and photo sessions by ${SITE.name} in ${city}: glam, bridal, natural, events and content. Watch the latest reels.`,
+  description: `Makeup looks and photo sessions by ${SITE.name} in ${reach}: glam, bridal, natural, events and content. Watch the latest reels.`,
   alternates: { canonical: "/reels" },
 };
 
@@ -21,6 +22,7 @@ export default async function ReelsPage() {
     <main>
       <SiteNav />
       <section className="block top">
+          <Breadcrumbs trail={[["Home", "/"], ["Reels", "/reels"]]} />
         <h1 className="h2">Reels</h1>
         <p className="lede">Looks and shoots from real sessions. Open a reel to watch it, share it or book something similar.</p>
         <ReelsGallery reels={reels} />

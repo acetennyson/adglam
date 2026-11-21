@@ -3,7 +3,7 @@ import { Playfair_Display, Montserrat } from "next/font/google";
 import { FOUNDER, SITE } from "@/lib/site";
 import Analytics from "@/components/Analytics";
 import "./globals.css";
-import { city, country } from "@/lib/contact";
+import { city, country, serviceAreas } from "@/lib/contact";
 
 const display = Playfair_Display({ subsets: ["latin"], variable: "--font-display", style: ["normal", "italic"] });
 const body = Montserrat({ subsets: ["latin"], variable: "--font-body" });
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: { default: SITE.title, template: `%s | ${SITE.name}` },
   description: SITE.description,
   applicationName: SITE.name,
-  keywords: [`makeup artist ${city}`, `mobile photography ${city}`, "bridal makeup Cameroon", "glam makeup", "event photography", SITE.name],
+  keywords: [`makeup artist ${city}`, `mobile photography ${city}`, ...serviceAreas.slice(1).map((a) => `makeup artist ${a}`), "bridal makeup Cameroon", "glam makeup", "event photography", SITE.name],
   alternates: { canonical: "/" },
   // Site-ownership tags for the webmaster tools. Each is only rendered when its variable is set.
   verification: {
@@ -43,7 +43,8 @@ const jsonLd = {
   url: SITE.url,
   telephone: SITE.phone,
   address: { "@type": "PostalAddress", addressLocality: city, addressCountry: country },
-  areaServed: city,
+  areaServed: [...serviceAreas.map((n) => ({ "@type": "City", name: n })), { "@type": "Country", name: country }],
+  knowsAbout: ["Bridal makeup", "Glam makeup", "Natural makeup", "Mobile photography", "Portrait photography", "Event photography"],
   sameAs: [SITE.tiktok],
   founder: { "@type": "Person", name: FOUNDER.name, url: `${SITE.url}/about` },
   makesOffer: [

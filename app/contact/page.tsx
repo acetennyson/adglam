@@ -4,11 +4,12 @@ import SiteFooter from "@/components/SiteFooter";
 import ContactForm from "@/components/ContactForm";
 import CopyButton from "@/components/CopyButton";
 import { SITE } from "@/lib/site";
-import { city, phonePretty, tiktokHandle } from "@/lib/contact";
+import { reach, phonePretty, tiktokHandle } from "@/lib/contact";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: `Book makeup or mobile photography in ${city}, or ask a question. Send ${SITE.name} a message, call or reach out on TikTok.`,
+  description: `Book makeup or mobile photography in ${reach}, or ask a question. Send ${SITE.name} a message, call or reach out on TikTok.`,
   alternates: { canonical: "/contact" },
 };
 
@@ -19,6 +20,7 @@ export default function ContactPage() {
     <main>
       <SiteNav />
       <section className="block top">
+          <Breadcrumbs trail={[["Home", "/"], ["Contact", "/contact"]]} />
         <p className="kicker">Contact</p>
         <h1 className="h1">Let&apos;s talk</h1>
         <p className="lede">Planning an event, a shoot or just a question? Tell us a little about it and the message lands straight with the team, without leaving this page.</p>

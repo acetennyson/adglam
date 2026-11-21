@@ -2,14 +2,15 @@ import Link from "next/link";
 import SiteNav from "./SiteNav";
 import SiteFooter from "./SiteFooter";
 import { SITE } from "@/lib/site";
-import { city } from "@/lib/contact";
+import { serviceAreas } from "@/lib/contact";
+import Breadcrumbs from "./Breadcrumbs";
 
 export type ServiceContent = { slug: string; h1: string; kicker: string; intro: string; serviceType: string; looks: [string, string][]; suits: string[]; faq: [string, string][]; other: { href: string; label: string } };
 
 export default function ServicePage({ c }: { c: ServiceContent }) {
   const jsonLd = {
     "@context": "https://schema.org", "@type": "Service", name: c.h1, serviceType: c.serviceType, description: c.intro,
-    provider: { "@type": "HealthAndBeautyBusiness", name: SITE.name, url: SITE.url, telephone: SITE.phone }, areaServed: city, url: `${SITE.url}/${c.slug}`,
+    provider: { "@type": "HealthAndBeautyBusiness", name: SITE.name, url: SITE.url, telephone: SITE.phone }, areaServed: serviceAreas.map((n) => ({ "@type": "City", name: n })), url: `${SITE.url}/${c.slug}`,
   };
   return (
     <>
@@ -17,6 +18,7 @@ export default function ServicePage({ c }: { c: ServiceContent }) {
         <SiteNav />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         <section className="block top">
+          <Breadcrumbs trail={[["Home", "/"], [c.kicker, `/${c.slug}`]]} />
           <p className="kicker">{c.kicker}</p>
           <h1 className="h1">{c.h1}</h1>
           <p className="lede big">{c.intro}</p>

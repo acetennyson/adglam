@@ -37,6 +37,8 @@ Everything about the brand lives in **`lib/site.ts`**. Edit it and the whole sit
 | `SITE` | name, url, title, description, phone, whatsapp (digits only), location (`"City, Country"`), tiktok URL |
 | `FOUNDER` | name, role, photo. Add her photo to `/public` (for example `/enow-adian.jpg`) and set `photo` to that path |
 | `CREDIT` | developer credit shown in the footer |
+| `AREAS` | other towns or regions she works in, besides the home city. Feeds the page copy and the search-engine service-area data |
+| `PROOF` | optional social proof (Google rating and review count, follower counts, highlights). Shown only for the fields you fill in, so use real, checkable numbers |
 | `HOME_REELS` | how many reels the homepage strip shows |
 
 `lib/contact.ts` derives display values from those (formatted phone, `@handle` from the TikTok link, city and country from the location). Do not hard-code contact details elsewhere.
@@ -125,6 +127,10 @@ After deploying, accept the banner in an incognito window and confirm events (wi
 - Unique title, description and canonical on every public page; `sitemap.xml` and `robots.txt` generated (admin, `/api/` and `/ingest/` are excluded).
 - Structured data: business and founder (site-wide), `AboutPage` + `Person` (`/about`), `Service` (`/makeup`, `/photography`), `VideoObject` on reels that have a cover and publish date.
 - Share image and icons generated; web manifest included.
+- Google result appearance: the home page declares a **site name** (`WebSite` data, with a favicon of 48px or more) and inner pages declare **breadcrumbs**, which Google may show instead of the bare domain. Google decides what it displays; markup only makes the page eligible.
+- **Stars and review counts** do not come from markup on your own site: Google ignores review markup that a business puts on its own pages for itself. Stars come from reviews on your **Google Business Profile**. So the site shows real testimonials and the `PROOF` strip as normal content, with no review markup. Never add fake or undisclosed incentivised reviews (Google's rules, updated July 2026).
+- Follower counts cannot be forced into search results. They appear on the site through `PROOF`.
+- Not tied to one town: `AREAS` in `lib/site.ts` drives the copy and the `areaServed` data. Only add places that are genuinely served.
 - Search-engine verification tags are added from the four `*_SITE_VERIFICATION` variables. After adding them in Vercel and redeploying, press Verify in Google Search Console, Bing Webmaster Tools, Yandex Webmaster and Pinterest, and submit `/sitemap.xml`.
 - Off-site matters most: a Google Business Profile (service-area business), the same name, phone and location everywhere, "Enow Adian M" and "ADGlam" named consistently on every profile with a link to the site, client reviews with permission, and mentions from local collaborators.
 

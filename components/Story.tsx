@@ -14,7 +14,7 @@ const chapters = [
   { kicker: "Soft strokes. Slow breathing.", title: "Skin that feels like you.", body: "Nothing is copied from a template. We start with your skin, your outfit and the way you want to be remembered, then build the look one careful layer at a time.", keep: "Professional products, clean tools" },
   { kicker: "The mirror opens.", title: "The moment you see it.", body: "That small pause when you look up and recognise yourself, only better. It is the part worth slowing down for, so we never rush it.", keep: "Flexible scheduling that works for you" },
   { kicker: "One tap. One flash.", title: "Then we capture it.", body: "The same artist who did your makeup photographs you, on location, in real light. Portraits, events and lifestyle shots, edited to a high standard and ready for your feed or your wall.", keep: "Portraits, events, lifestyle, content" },
-  { kicker: "Years from now.", title: "Keep it forever.", body: "A look fades by midnight. A good photograph does not. Book a session in Buea and we will come to you, with the makeup, the camera and the time to make it special.", keep: "Home, office, events and more", cta: true },
+  { kicker: "Years from now.", title: "Keep it forever.", body: "A look fades by midnight. A good photograph does not. Book a session and we will come to you, with the makeup, the camera and the time to make it special.", keep: "Home, office, events and more", cta: true },
 ];
 
 function Reveal({ text }: { text: string }) {

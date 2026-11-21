@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import { SITE } from "@/lib/site";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 export const metadata: Metadata = { title: "Privacy", description: `How ${SITE.name} handles visitor data, cookies and messages.`, alternates: { canonical: "/privacy" } };
 
@@ -11,6 +12,7 @@ export default function Privacy() {
       <main>
         <SiteNav />
         <section className="block top prose">
+          <Breadcrumbs trail={[["Home", "/"], ["Privacy", "/privacy"]]} />
           <h1 className="h1">Privacy notice</h1>
           <p className="lede">A plain-language summary of what this website collects and why.</p>
           <h2>Analytics (only if you accept)</h2>

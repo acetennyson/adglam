@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import SiteNav from "@/components/SiteNav";
 import ReelFeed from "@/components/ReelFeed";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { getPublishedReels, getReel } from "@/lib/reels";
 import { embedSrc, type Platform } from "@/lib/embed";
 import { SITE } from "@/lib/site";
@@ -32,6 +33,7 @@ export default async function ReelPage({ params }: Props) {
   return (
     <main className="feed-page">
       <SiteNav />
+      <Breadcrumbs visible={false} trail={[["Home", "/"], ["Reels", "/reels"], [r.title, `/reels/${r.id}`]]} />
       {jsonLd && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />}
       <ReelFeed reels={reels} startId={r.id} siteUrl={SITE.url} />
     </main>

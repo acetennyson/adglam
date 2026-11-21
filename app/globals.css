@@ -264,3 +264,10 @@ code{background:var(--glass);padding:.1rem .4rem;border-radius:6px;font-size:.85
 .faq details{border-top:1px solid var(--glass-b);padding:.9rem 0}.faq summary{cursor:pointer;font-weight:600}.faq p{margin:.5rem 0 0;color:var(--muted)}
 .chips-list{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0;padding:0;list-style:none}.chips-list li{padding:.4rem .9rem;border-radius:999px;border:1px solid var(--glass-b);background:var(--glass)}
 .more-link{color:var(--rose-d);font-weight:600}.cta-band .lede a,.block .lede a{color:var(--rose-d);text-decoration:underline}
+
+/* breadcrumbs + social proof */
+.crumbs{font-size:.82rem;color:var(--muted);margin-bottom:1rem}.crumbs a{color:var(--rose-d)}.crumbs a:hover{text-decoration:underline}
+.proof{display:flex;flex-wrap:wrap;gap:.8rem 1.2rem;align-items:center;justify-content:center;padding:1.1rem clamp(16px,6vw,80px);border-block:1px solid var(--glass-b);background:color-mix(in srgb,var(--bg2) 45%,transparent)}
+.proof ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.5rem .8rem;justify-content:center}
+.proof li{padding:.4rem .9rem;border-radius:999px;border:1px solid var(--glass-b);background:var(--glass);font-size:.88rem}.proof li a:hover,.proof-cta:hover{color:var(--rose-d)}
+.proof-cta{font-size:.88rem;font-weight:600;color:var(--rose-d);text-decoration:underline}

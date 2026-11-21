@@ -5,6 +5,7 @@ import SiteFooter from "@/components/SiteFooter";
 import { getReels } from "@/lib/reels";
 import Link from "next/link";
 import Portrait from "@/components/Portrait";
+import ProofStrip from "@/components/ProofStrip";
 import { FOUNDER, HOME_REELS, SITE } from "@/lib/site";
 import { city, phonePretty, tiktokHandle } from "@/lib/contact";
 
@@ -16,8 +17,10 @@ export default async function Home() {
     <>
     <main>
       <SiteNav />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "WebSite", name: SITE.name, alternateName: [SITE.name.replace(/^(AD)(Glam)$/i, "$1 $2")], url: SITE.url }) }} />
 
       <div id="top"><Story /></div>
+      <ProofStrip />
 
       <section id="services" className="block">
         <h2 className="h2">Two services, one artist</h2>

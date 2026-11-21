@@ -20,3 +20,19 @@ export const FOUNDER = {
   role: "Founder, makeup artist and photographer",
   photo: "",
 };
+
+// Other towns or regions she also works in, besides the home city in SITE.location (which is always included).
+// Only list places you really serve, e.g. ["Limbe", "Douala", "Yaoundé"]. Leave empty to say "other regions of <country>".
+export const AREAS: string[] = [];
+
+// Social proof shown on the site, only for the fields you fill in. Use real numbers you can show a screenshot of.
+// googleReviewsUrl: the "Get more reviews" link from your Google Business Profile.
+export const PROOF = {
+  googleRating: "",        // e.g. "5.0"
+  googleReviews: "",       // e.g. "32"
+  googleReviewsUrl: "",
+  tiktokFollowers: "",     // e.g. "25K"
+  instagramFollowers: "",
+  instagramUrl: "",
+  highlights: [] as string[], // e.g. "Bridal clients in four towns"
+};

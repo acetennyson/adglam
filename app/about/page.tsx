@@ -4,7 +4,8 @@ import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import Portrait from "@/components/Portrait";
 import { FOUNDER, SITE } from "@/lib/site";
-import { city, country } from "@/lib/contact";
+import { city, country, reach } from "@/lib/contact";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 export const metadata: Metadata = {
   title: `About ${FOUNDER.name}`,
@@ -42,6 +43,7 @@ export default function About() {
         <SiteNav />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         <section className="block top">
+          <Breadcrumbs trail={[["Home", "/"], ["About", "/about"]]} />
           <div className="about-hero">
             <div>
               <p className="kicker">About</p>
@@ -83,7 +85,7 @@ export default function About() {
 
         <section className="block book cta-band">
           <h2 className="h2">Ready for your glam moment?</h2>
-          <p className="lede">Tell us about your day. We come to you in {city}.</p>
+          <p className="lede">Tell us about your day. We come to you in {reach}.</p>
           <div className="contact"><Link className="btn" href="/contact">Send a message</Link><Link className="btn ghost" href="/makeup">Makeup</Link><Link className="btn ghost" href="/photography">Photography</Link></div>
         </section>
       </main>
